@@ -52,11 +52,11 @@ from model import get_model
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 model = get_model(num_classes=2, num_keypoints=1)
-model.load_state_dict(torch.load("keypointrcnn_saffron_final.pth", map_location=device))
+model.load_state_dict(torch.load("Sample_Weight/keypointrcnn_saffron_final.pth", map_location=device))
 model.to(device)
 model.eval()
 
-def predict_and_visualize(image_path, score_thresh=0.2, save_path=None):
+def predict_and_visualize(image_path, score_thresh=0.3, save_path=None):
     img = Image.open(image_path).convert("RGB")
     img_tensor = F.to_tensor(img).to(device)
 
@@ -96,5 +96,5 @@ def predict_and_visualize(image_path, score_thresh=0.2, save_path=None):
     return img
 
 if __name__ == "__main__":
-    img = predict_and_visualize("image_10.jpeg", save_path="out_example.jpg")
+    img = predict_and_visualize("Dataset_txt/test/image_10_20250822_160418.jpg", save_path="out_example.jpg")
     img.show()
