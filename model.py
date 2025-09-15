@@ -31,9 +31,8 @@ def get_model(num_classes=2, num_keypoints=1, pretrained=True):
 
     # Replace the keypoint predictor (for your dataset)
     in_features_keypoint = model.roi_heads.keypoint_predictor.kps_score_lowres.in_channels
-    hidden_layer = 512
     model.roi_heads.keypoint_predictor = torchvision.models.detection.keypoint_rcnn.KeypointRCNNPredictor(
-        in_features_keypoint, hidden_layer, num_keypoints
+        in_features_keypoint, num_keypoints
     )
 
     return model

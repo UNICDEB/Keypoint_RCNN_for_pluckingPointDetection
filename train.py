@@ -102,16 +102,32 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq=50)
 
 
 def evaluate_one_epoch(model, data_loader, device):
-    model.eval()
+    model.train()  # <-- set to train mode to get losses!
     val_loss = 0.0
+    num_batches = 0
+
     with torch.no_grad():
         for images, targets in data_loader:
             images = [img.to(device) for img in images]
             targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
-            loss_dict = model(images, targets)
-            losses = sum(loss for loss in loss_dict.values())
-            val_loss += losses.item()
-    return val_loss / len(data_loader)
+
+            batch_loss = 0.0
+            for img, tgt in zip(images, targets):
+                loss_dict = model([img], [tgt])  # single image
+                if isinstance(loss_dict, dict):
+                    loss_val = sum(loss for loss in loss_dict.values()).item()
+                else:
+                    # If not dict, skip or set to zero
+                    loss_val = 0.0
+                batch_loss += loss_val
+
+            batch_loss /= len(images)
+            val_loss += batch_loss
+            num_batches += 1
+
+    return val_loss / max(1, num_batches)
+
+
 
 
 def main():
@@ -145,7 +161,7 @@ def main():
 
     os.makedirs("Sample_Weight", exist_ok=True)
 
-    num_epochs = 200
+    num_epochs = 500
     for epoch in range(num_epochs):
         train_loss = train_one_epoch(model, optimizer, train_loader, device, epoch, print_freq=20)
         val_loss = evaluate_one_epoch(model, val_loader, device)
