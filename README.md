@@ -1,4 +1,4 @@
-# 🌸 Saffron Flower Plucking Point Detection (Keypoint R-CNN)
+# Saffron Flower Plucking Point Detection (Keypoint R-CNN)
 
 This project detects **saffron flowers** and their **plucking point** using a **Keypoint R-CNN** model in PyTorch.  
 It is designed for automating saffron harvesting by identifying the flower side view and the correct plucking location.
