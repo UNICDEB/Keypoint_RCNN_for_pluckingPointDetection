@@ -1,0 +1,23 @@
+Inside here, Implement keypoint R-CNN algorithm for saffron flower and plucking point identification.
+
+1. Convert Dataset(Yolo .txt format) to RCNN json format.
+     E:\Project_Work\2025\Saffron_Project\Github_Code\Dataset_Preparation
+2. Then configure the training code for training.
+3. Pytorch.
+4. Env - yolov11_env
+5.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Date: 12.09.2025
