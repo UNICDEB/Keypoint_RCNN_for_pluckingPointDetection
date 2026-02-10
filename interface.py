@@ -117,7 +117,8 @@ from model import get_model
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 model = get_model(num_classes=2, num_keypoints=1)
 # model.load_state_dict(torch.load("Sample_Weight/keypointrcnn_saffron_final.pth", map_location=device))
-model.load_state_dict(torch.load("Sample_Weight/checkpoint_epoch_475.pth", map_location=device))
+model.load_state_dict(torch.load("Sample_Weight/new_weight/checkpoint_epoch_475.pth", map_location=device))
+# model.load_state_dict(torch.load("checkpoint_epoch_475.pth", map_location=device))
 model.to(device)
 model.eval()
 
@@ -167,7 +168,7 @@ def predict_and_visualize(image_path, score_thresh=0.3, save_path=None):
 # Run on a folder of images
 # ------------------------
 if __name__ == "__main__":
-    input_folder = "Dataset_txt/test"        # folder with test images
+    input_folder = "Dataset_txt/realsense"        # folder with test images
     output_folder = "Result/inference_results"      # folder to save results
     os.makedirs(output_folder, exist_ok=True)
 
